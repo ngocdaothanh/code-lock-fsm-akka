@@ -17,7 +17,7 @@ class Lock(code: String) extends Actor with Fsm[String] {
       val sofar2 = sofar + digit
       if (sofar2 == code) {
         println("Opened")
-        State(NextState, open, "", Some(Lock.TIMEOUT))
+        State(NextState, opened, "", Some(Lock.TIMEOUT))
       } else {
         if (sofar2.length < code.length) {
           println("So far: " + sofar2)
@@ -33,7 +33,7 @@ class Lock(code: String) extends Actor with Fsm[String] {
       initialState
   }
 
-  def open: StateFunction = {
+  def opened: StateFunction = {
     case Event(_, _) =>
       println("Locked")
       initialState
