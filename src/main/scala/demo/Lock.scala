@@ -1,7 +1,6 @@
 package demo
 
-import actor.Fsm
-import se.scalablesolutions.akka.actor.Actor
+import se.scalablesolutions.akka.actor.{Actor, FSM}
 
 case class Button(digit: Char)
 
@@ -9,7 +8,7 @@ object Lock {
   val TIMEOUT = 5000
 }
 
-class Lock(code: String) extends Actor with Fsm[String] {
+class Lock(code: String) extends Actor with FSM[String] {
   def initialState = State(NextState, locked, "")
 
   def locked: StateFunction = {
