@@ -4,24 +4,16 @@ See: http://cntt.tv/nodes/show/559
 
 To run:
 
-1. Install JVM, Git, and SBT
+1. Checkout using Git and compile using SBT
 
-2. Checkout Akka to ~/plain/akka and compile
-
-cd ~/plain
-git clone http://github.com/jboner/akka.git
-cd akka
-sbt update
-sbt dist
-
-3. Checkout the demo and open SBT's console
-
-cd ~/plain
+cd /tmp
 git clone http://github.com/ngocdaothanh/lock-fsm-akka.git
 cd lock-fsm-akka
+sbt update
+sbt compile
 sbt console
 
-4. From the console, run
+2. From the console, run
 
 import se.scalablesolutions.akka.actor.Actor
 import demo.{Lock, Button}

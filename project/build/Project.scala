@@ -1,8 +1,9 @@
 import sbt._
 
 class Project(info: ProjectInfo) extends DefaultProject(info) {
-  //val akkaHome = Path.fromFile(System.getenv("AKKA_HOME"))
-  val akkaHome = Path.fromFile(System.getProperty("user.home") + "/plain/akka")
+  val akkaRepo = "Akka" at "http://www.scalablesolutions.se/akka/repository"
 
-  override def unmanagedClasspath = (akkaHome ** "*.jar") //+++ (akkaHome / "lib_managed" ** "*.jar")
+  override def libraryDependencies = Set(
+    "se.scalablesolutions.akka" %% "akka-actor" % "1.0-M1"
+  ) ++ super.libraryDependencies
 }
