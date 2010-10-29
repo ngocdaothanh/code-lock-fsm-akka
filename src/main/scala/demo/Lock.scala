@@ -19,29 +19,30 @@ class Lock(code: String) extends Actor with FSM[LockState, String] {
     case Event(Button(digit), sofar) =>
       val sofar2 = sofar + digit
       if (sofar2 == code) {
-        println("Opened")
+        log.info("Opened")
         goto(Opened) using("") until(Lock.TIMEOUT)
       } else {
         if (sofar2.length < code.length) {
-          println("So far: " + sofar2)
-          goto(Locked) using(sofar2) until(Lock.TIMEOUT)
+          log.info("So far: " + sofar2)
+          stay using(sofar2) until(Lock.TIMEOUT)
         } else {
-          println("Wrong code")
-          goto(Locked) using("")
+          log.info("Wrong code")
+          stay using("")
         }
       }
 
     case Event(StateTimeout, _) =>
-      println("Reset")
-      goto(Locked) using("")
+      log.info("Reset")
+      stay using("")
   }
 
   when(Opened) {
     case Event(_, _) =>
-      println("Locked")
+      log.info("Locked")
       goto(Locked) using("")
   }
 
-  // This should be the last line, or there will be NullPointerException!
+  // This should be the last line,
+  // otherwise there will be NullPointerException when this actor starts!
   startWith(Locked, "")
 }

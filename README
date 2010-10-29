@@ -24,11 +24,11 @@ sbt console
 
 import akka.actor.Actor
 import demo.{Lock, Button}
-val l = Actor.actorOf(new Lock("2010"))
+val l = Actor.actorOf(new Lock("2552"))
 l.start
 l ! Button('2')
-l ! Button('0')
-l ! Button('1')
-l ! Button('0')
+l ! Button('5')
+l ! Button('5')
+l ! Button('2')
 l.stop
 exit
