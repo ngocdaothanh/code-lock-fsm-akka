@@ -1,40 +1,47 @@
 package demo
 
-import se.scalablesolutions.akka.actor.{Actor, FSM}
-
-case class Button(digit: Char)
+import akka.actor.{Actor, FSM}
 
 object Lock {
   val TIMEOUT = 5000
 }
 
-class Lock(code: String) extends Actor with FSM[String] {
-  def initialState = State(NextState, locked, "")
+// States
+sealed trait LockState
+case object Locked extends LockState
+case object Opened extends LockState
 
-  def locked: StateFunction = {
+// Message
+case class Button(digit: Char)
+
+class Lock(code: String) extends Actor with FSM[LockState, String] {
+  when(Locked) {
     case Event(Button(digit), sofar) =>
       val sofar2 = sofar + digit
       if (sofar2 == code) {
         println("Opened")
-        State(NextState, opened, "", Some(Lock.TIMEOUT))
+        goto(Opened) using("") until(Lock.TIMEOUT)
       } else {
         if (sofar2.length < code.length) {
           println("So far: " + sofar2)
-          State(NextState, locked, sofar2, Some(Lock.TIMEOUT))
+          goto(Locked) using(sofar2) until(Lock.TIMEOUT)
         } else {
           println("Wrong code")
-          initialState
+          goto(Locked) using("")
         }
       }
 
     case Event(StateTimeout, _) =>
       println("Reset")
-      initialState
+      goto(Locked) using("")
   }
 
-  def opened: StateFunction = {
+  when(Opened) {
     case Event(_, _) =>
       println("Locked")
-      initialState
+      goto(Locked) using("")
   }
+
+  // This should be the last line, or there will be NullPointerException!
+  startWith(Locked, "")
 }

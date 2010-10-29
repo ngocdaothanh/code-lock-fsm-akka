@@ -4,6 +4,9 @@ class Project(info: ProjectInfo) extends DefaultProject(info) {
   val akkaRepo = "Akka" at "http://www.scalablesolutions.se/akka/repository"
 
   override def libraryDependencies = Set(
-    "se.scalablesolutions.akka" %% "akka-actor" % "1.0-M1"
+    "akka" %% "akka-actor"  % "1.0-SNAPSHOT",
+		"akka" %% "akka-remote" % "1.0-SNAPSHOT"
   ) ++ super.libraryDependencies
+
+  override def unmanagedClasspath = super.unmanagedClasspath +++ ("config")
 }
