@@ -15,11 +15,17 @@ case object Opened extends LockState
 case class Button(digit: Char)
 
 class Lock(code: String) extends Actor with FSM[LockState, String] {
+  notifying {
+    case Transition(Locked, Opened) =>
+      log.info("The lock is opened")
+    case Transition(Opened, Locked) =>
+      log.info("The lock is locked")
+  }
+
   when(Locked) {
     case Event(Button(digit), sofar) =>
       val sofar2 = sofar + digit
       if (sofar2 == code) {
-        log.info("Opened")
         goto(Opened) using("") until(Lock.TIMEOUT)
       } else {
         if (sofar2.length < code.length) {
@@ -38,7 +44,6 @@ class Lock(code: String) extends Actor with FSM[LockState, String] {
 
   when(Opened) {
     case Event(_, _) =>
-      log.info("Locked")
       goto(Locked) using("")
   }
 
