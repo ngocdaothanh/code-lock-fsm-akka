@@ -1,5 +1,3 @@
-lib_managed
-logs
-project/boot
+project
 target
 .*
