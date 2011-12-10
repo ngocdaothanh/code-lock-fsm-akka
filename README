@@ -1,26 +1,18 @@
 This is a "Lock" demo for the feature FSM (Finite State Machine) of Akka.
-
+Compatible with Akka 1.3.
 See: http://cntt.tv/nodes/show/559
 
-You should have Git and SBT. To run:
-
-1. Install Akka 1.0-SNAPSHOT
-
-cd /tmp
-git clone http://github.com/jboner/akka.git
-cd akka
-sbt update
-sbt publish-local
-
-2. Run the demo in SBT console
+Checkout:
 
 cd /tmp
 git clone http://github.com/ngocdaothanh/lock-fsm-akka.git
-cd lock-fsm-akka
-sbt update
+
+Build and run with SBT 0.11.2:
+
+cd /tmp/lock-fsm-akka
 sbt console
 
-3. From the console, input
+From the console:
 
 import akka.actor.Actor
 import demo.{Lock, Button}
@@ -31,4 +23,3 @@ l ! Button('5')
 l ! Button('5')
 l ! Button('2')
 l.stop
-exit

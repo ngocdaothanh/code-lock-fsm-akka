@@ -1,9 +1,11 @@
 package demo
 
 import akka.actor.{Actor, FSM}
+import akka.event.EventHandler
+import akka.util.duration._
 
 object Lock {
-  val TIMEOUT = 5000
+  val TIMEOUT = 5 seconds
 }
 
 // States
@@ -15,30 +17,28 @@ case object Opened extends LockState
 case class Button(digit: Char)
 
 class Lock(code: String) extends Actor with FSM[LockState, String] {
-  notifying {
-    case Transition(Locked, Opened) =>
-      log.info("The lock is opened")
-    case Transition(Opened, Locked) =>
-      log.info("The lock is locked")
-  }
+  import Lock._
+  import FSM._
+
+  startWith(Locked, "")
 
   when(Locked) {
     case Event(Button(digit), sofar) =>
       val sofar2 = sofar + digit
       if (sofar2 == code) {
-        goto(Opened) using("") until(Lock.TIMEOUT)
+        goto(Opened) using("") forMax(TIMEOUT)
       } else {
         if (sofar2.length < code.length) {
-          log.info("So far: " + sofar2)
-          stay using(sofar2) until(Lock.TIMEOUT)
+          EventHandler.info(this, "So far: " + sofar2)
+          stay using(sofar2) forMax(TIMEOUT)
         } else {
-          log.info("Wrong code")
+          EventHandler.info(this, "Wrong code: " + sofar2)
           stay using("")
         }
       }
 
     case Event(StateTimeout, _) =>
-      log.info("Reset")
+      EventHandler.info(this, "Reset")
       stay using("")
   }
 
@@ -47,7 +47,12 @@ class Lock(code: String) extends Actor with FSM[LockState, String] {
       goto(Locked) using("")
   }
 
-  // This should be the last line,
-  // otherwise there will be NullPointerException when this actor starts!
-  startWith(Locked, "")
+  onTransition {
+    case Locked -> Opened =>
+      EventHandler.info(this, "The lock is opened")
+    case Opened -> Locked =>
+      EventHandler.info(this, "The lock is locked")
+  }
+
+  initialize
 }
