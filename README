@@ -27,5 +27,6 @@ lock.stop
 To quit the SBT console:
 
 import akka.actor.Actors
-Actors.registry.shutdownAll
+Actors.registry.shutdownAll()
+Actors.remote.shutdown()
 :q
