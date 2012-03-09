@@ -1,5 +1,5 @@
 This is a "Lock" demo for the feature FSM (Finite State Machine) of Akka.
-Compatible with Akka 1.3.
+Compatible with Akka 2.0.
 See: http://cntt.tv/nodes/show/559
 
 Checkout:
@@ -14,19 +14,16 @@ sbt console
 
 From the SBT console:
 
-import akka.actor.Actor
+import akka.actor.{ActorSystem, Props}
 import demo.{Lock, Button}
-val lock = Actor.actorOf(new Lock("2552"))
-lock.start
+val system = ActorSystem("LockSystem")
+val lock = system.actorOf(Props(new Lock("2552")))
 lock ! Button('2')
 lock ! Button('5')
 lock ! Button('5')
 lock ! Button('2')
-lock.stop
 
 To quit the SBT console:
 
-import akka.actor.Actors
-Actors.registry.shutdownAll()
-Actors.remote.shutdown()
+system.shutdown()
 :q

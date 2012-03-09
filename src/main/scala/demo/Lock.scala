@@ -1,7 +1,6 @@
 package demo
 
 import akka.actor.{Actor, FSM}
-import akka.event.EventHandler
 import akka.util.duration._
 
 object Lock {
@@ -29,16 +28,16 @@ class Lock(code: String) extends Actor with FSM[LockState, String] {
         goto(Opened) using("") forMax(TIMEOUT)
       } else {
         if (sofar2.length < code.length) {
-          EventHandler.info(this, "So far: " + sofar2)
+          log.info("So far: " + sofar2)
           stay using(sofar2) forMax(TIMEOUT)
         } else {
-          EventHandler.info(this, "Wrong code: " + sofar2)
+          log.info("Wrong code: " + sofar2)
           stay using("")
         }
       }
 
     case Event(StateTimeout, _) =>
-      EventHandler.info(this, "Reset")
+      log.info("Reset")
       stay using("")
   }
 
@@ -49,9 +48,9 @@ class Lock(code: String) extends Actor with FSM[LockState, String] {
 
   onTransition {
     case Locked -> Opened =>
-      EventHandler.info(this, "The lock is opened")
+      log.info("The lock is opened")
     case Opened -> Locked =>
-      EventHandler.info(this, "The lock is locked")
+      log.info("The lock is locked")
   }
 
   initialize
