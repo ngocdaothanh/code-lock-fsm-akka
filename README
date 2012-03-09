@@ -27,3 +27,6 @@ To quit the SBT console:
 
 system.shutdown()
 :q
+
+Or you can also run (see Demo.scala):
+sbt run

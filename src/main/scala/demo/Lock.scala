@@ -3,17 +3,17 @@ package demo
 import akka.actor.{Actor, FSM}
 import akka.util.duration._
 
-object Lock {
-  val TIMEOUT = 5 seconds
-}
-
 // States
 sealed trait LockState
 case object Locked extends LockState
 case object Opened extends LockState
 
-// Message
+// Events (other than FSM.StateTimeout)
 case class Button(digit: Char)
+
+object Lock {
+  val TIMEOUT = 5 seconds
+}
 
 class Lock(code: String) extends Actor with FSM[LockState, String] {
   import Lock._
