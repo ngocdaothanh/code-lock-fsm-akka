@@ -1,27 +1,29 @@
-This is a "Lock" demo for the feature FSM (Finite State Machine) of Akka.
-Compatible with Akka 2.0.
+This is a "Code Lock" Finite State Machine demo of Erlang:
+http://www.erlang.org/doc/design_principles/fsm.html
+implemented with Akka 2.0.
+
 See: http://cntt.tv/nodes/show/559
 
 Checkout:
 
 cd /tmp
-git clone http://github.com/ngocdaothanh/lock-fsm-akka.git
+git clone http://github.com/ngocdaothanh/code-lock-fsm-akka.git
 
 Build and run with SBT 0.11.2:
 
-cd /tmp/lock-fsm-akka
+cd /tmp/code-lock-fsm-akka
 sbt console
 
 From the SBT console:
 
 import akka.actor.{ActorSystem, Props}
-import demo.{Lock, Button}
+import demo.{CodeLock, Button}
 val system = ActorSystem("LockSystem")
-val lock = system.actorOf(Props(new Lock("2552")))
-lock ! Button('2')
-lock ! Button('5')
-lock ! Button('5')
-lock ! Button('2')
+val cl = system.actorOf(Props(new CodeLock("2552")))
+cl ! Button('2')
+cl ! Button('5')
+cl ! Button('5')
+cl ! Button('2')
 
 To quit the SBT console:
 

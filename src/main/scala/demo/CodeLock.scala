@@ -1,7 +1,6 @@
 package demo
 
 import akka.actor.{Actor, FSM}
-import akka.util.duration._
 
 // States
 sealed trait LockState
@@ -11,24 +10,27 @@ case object Opened extends LockState
 // Events (other than FSM.StateTimeout)
 case class Button(digit: Char)
 
-object Lock {
-  val TIMEOUT = 5 seconds
+object CodeLock {
+  import akka.util.duration._
+  val TIMEOUT = 3 seconds
 }
 
-class Lock(code: String) extends Actor with FSM[LockState, String] {
-  import Lock._
+class CodeLock(code: String) extends Actor with FSM[LockState, String] {
+  import CodeLock._
   import FSM._
 
   startWith(Locked, "")
+  log.info("Code: " + code)
 
   when(Locked) {
     case Event(Button(digit), sofar) =>
       val sofar2 = sofar + digit
+      log.info("So far: " + sofar2)
+
       if (sofar2 == code) {
         goto(Opened) using("") forMax(TIMEOUT)
       } else {
         if (sofar2.length < code.length) {
-          log.info("So far: " + sofar2)
           stay using(sofar2) forMax(TIMEOUT)
         } else {
           log.info("Wrong code: " + sofar2)

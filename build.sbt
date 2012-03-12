@@ -1,6 +1,6 @@
 organization := "tv.cntt"
 
-name := "lock-fsm-akka"
+name := "code-lock-fsm-akka"
 
 version := "1.0-SNAPSHOT"
 
