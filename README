@@ -9,10 +9,10 @@ Checkout:
 cd /tmp
 git clone http://github.com/ngocdaothanh/code-lock-fsm-akka.git
 
-Build and run with SBT 0.11.2:
+Build and run:
 
 cd /tmp/code-lock-fsm-akka
-sbt console
+sbt/sbt console
 
 From the SBT console:
 
