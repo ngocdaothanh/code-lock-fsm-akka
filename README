@@ -16,18 +16,16 @@ sbt console
 
 From the SBT console:
 
-import akka.actor.{ActorSystem, Props}
-import demo.{CodeLock, Button}
-val system = ActorSystem("LockSystem")
-val cl = system.actorOf(Props(new CodeLock("2552")))
-cl ! Button('2')
-cl ! Button('5')
-cl ! Button('5')
-cl ! Button('2')
+import demo.CodeLock
+val actorRef = CodeLock.start(Seq(2, 5, 5, 2))
+CodeLock.button(actorRef, 2)
+CodeLock.button(actorRef, 5)
+CodeLock.button(actorRef, 5)
+CodeLock.button(actorRef, 2)
+CodeLock.stop(actorRef)
 
 To quit the SBT console:
-
-system.shutdown()
+CodeLock.shutdown()
 :q
 
 Or you can also run (see Demo.scala):

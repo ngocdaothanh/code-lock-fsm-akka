@@ -1,21 +1,19 @@
 package demo
 
-import akka.actor.{ActorSystem, Props}
-
 object Demo {
   def main(args: Array[String]) {
-    val system = ActorSystem("LockSystem")
+    val actorRef = CodeLock.start(Seq(2, 5, 5, 2))
 
-    val cl = system.actorOf(Props(new CodeLock("2552")))
-    cl ! Button('2')
+    CodeLock.button(actorRef, 2)
     Thread.sleep(1000)
-    cl ! Button('5')
+    CodeLock.button(actorRef, 5)
     Thread.sleep(1000)
-    cl ! Button('5')
+    CodeLock.button(actorRef, 5)
     Thread.sleep(1000)
-    cl ! Button('2')
-    Thread.sleep(4000)
+    CodeLock.button(actorRef, 2)
+    Thread.sleep(3500)
 
-    system.shutdown()
+    CodeLock.stop(actorRef)
+    CodeLock.shutdown()
   }
 }
