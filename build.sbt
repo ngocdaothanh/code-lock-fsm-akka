@@ -4,7 +4,7 @@ name := "code-lock-fsm-akka"
 
 version := "1.0-SNAPSHOT"
 
-scalaVersion := "2.9.1"
+scalaVersion := "2.9.2"
 
 scalacOptions ++= Seq(
   "-deprecation",
@@ -13,4 +13,4 @@ scalacOptions ++= Seq(
 
 resolvers += "Typesafe" at "http://repo.typesafe.com/typesafe/releases/"
 
-libraryDependencies += "com.typesafe.akka" % "akka-actor" % "2.0"
+libraryDependencies += "com.typesafe.akka" % "akka-actor" % "2.0.2"
