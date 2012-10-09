@@ -13,4 +13,4 @@ scalacOptions ++= Seq(
 
 resolvers += "Typesafe" at "http://repo.typesafe.com/typesafe/releases/"
 
-libraryDependencies += "com.typesafe.akka" % "akka-actor" % "2.0.2"
+libraryDependencies += "com.typesafe.akka" % "akka-actor" % "2.0.3"
