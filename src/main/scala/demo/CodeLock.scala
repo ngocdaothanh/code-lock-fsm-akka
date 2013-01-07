@@ -11,8 +11,8 @@ case object Opened extends LockState
 case class Button(digit: Int)
 
 object CodeLock {
-  import akka.util.duration._
-  val TIMEOUT = 3 seconds
+  import scala.concurrent.duration._
+  val TIMEOUT = 3.seconds
 
   val system = ActorSystem("LockSystem")
 
