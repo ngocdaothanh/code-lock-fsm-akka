@@ -1,6 +1,6 @@
 This is a "Code Lock" Finite State Machine demo of Erlang:
 http://www.erlang.org/doc/design_principles/fsm.html
-implemented with Akka 2.1.0.
+implemented with Akka 2.1.2.
 
 See: http://cntt.tv/nodes/show/559
 
