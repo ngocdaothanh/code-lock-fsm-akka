@@ -8,14 +8,13 @@ Checkout:
 
 ::
 
-  cd /tmp
   git clone http://github.com/ngocdaothanh/code-lock-fsm-akka.git
 
 Build and run:
 
 ::
 
-  cd /tmp/code-lock-fsm-akka
+  cd code-lock-fsm-akka
   sbt/sbt console
 
 From the SBT console:
@@ -41,4 +40,4 @@ Or you can also run (see Demo.scala):
 
 ::
 
-  sbt run
+  sbt/sbt run
