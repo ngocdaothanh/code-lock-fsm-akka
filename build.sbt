@@ -4,7 +4,7 @@ name := "code-lock-fsm-akka"
 
 version := "1.0-SNAPSHOT"
 
-scalaVersion := "2.10.4"
+scalaVersion := "2.11.0"
 
 scalacOptions ++= Seq(
   "-deprecation",
