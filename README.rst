@@ -1,6 +1,6 @@
-This is a "Code Lock" Finite State Machine demo of Erlang:
-http://www.erlang.org/doc/design_principles/fsm.html
-implemented with Akka 2.3.2.
+This is a "Code Lock"
+`Finite State Machine example from Erlang <http://www.erlang.org/doc/design_principles/fsm.html>`_,
+implemented with Akka 2.3.x.
 
 Checkout:
 
@@ -34,7 +34,7 @@ To quit the SBT console:
   CodeLock.shutdown()
   :q
 
-Or you can also run (see Demo.scala):
+Or you can also run (see `Demo.scala <https://github.com/ngocdaothanh/code-lock-fsm-akka/blob/master/src/main/scala/demo/Demo.scala>`_):
 
 ::
 
