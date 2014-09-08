@@ -12,4 +12,4 @@ scalacOptions ++= Seq(
   "-feature"
 )
 
-libraryDependencies += "com.typesafe.akka" %% "akka-actor" % "2.3.5"
+libraryDependencies += "com.typesafe.akka" %% "akka-actor" % "2.3.6"
